@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) {
-
+        // tentativa de números primos negativos (para inserir em uma função) código ainda precisa de mexer.
         int n1 = -11;
         int n2 = -1;
         int primo = 0;
