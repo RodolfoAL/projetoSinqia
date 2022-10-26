@@ -12,10 +12,10 @@ public class codigoExcecao {
 
         while (verify == 0) {
          try {
-             System.out.print("Digite o primeiro valor número: ");
+             System.out.print("Digite o primeiro número: ");
              num1 = entrada.nextDouble();
 
-             System.out.print("Digite o segundo valor número: ");
+             System.out.print("Digite o segundo número: ");
              num2 = entrada.nextDouble();
 
              if (num2 == 0) {
