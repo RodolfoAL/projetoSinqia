@@ -51,13 +51,10 @@ public class Exercicio {
 
                 String calculo;
 
-                do {
+
                     System.out.println("Digite o nome de qual cálculo você quer fazer:");
                     System.out.println("ARITMETICA OU HARMONICA");
                     calculo = entrada.next();
-
-                } while ((calculo.equals("aritmetica")) || (calculo.equals("ARITMETICA")) || (calculo.equals("harmonica")) || (calculo.equals("HARMONICA")));
-                System.out.println("A média escolhida foi: " + calculo);
 
                 int cond1 = 0;
                 String conta1 = "ARITMETICA";
