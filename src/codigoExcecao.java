@@ -23,10 +23,15 @@ public class codigoExcecao {
                  num2 = entrada.nextDouble();
              }
              verify = 1;
+
+
+
          } catch (InputMismatchException e) {
              entrada.nextLine();
              System.out.println("Digito inválido, tente novamente");
          }
+
+
         }
 
         double num3 = num1 / num2;
