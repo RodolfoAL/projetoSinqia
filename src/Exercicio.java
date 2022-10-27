@@ -69,6 +69,7 @@ public class Exercicio {
                 }
 
 
+
                 double resposta = 0;
                 if (cond1 == 1) {
                     resposta = numerosDigitados / valor;
