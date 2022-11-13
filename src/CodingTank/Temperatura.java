@@ -1,3 +1,5 @@
+package CodingTank;
+
 public class Temperatura {
     public static void main(String[] args){
         double fator1;

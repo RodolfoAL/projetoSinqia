@@ -1,3 +1,5 @@
+package CodingTank;
+
 import java.util.Scanner;
 
 class Main {
@@ -14,25 +16,6 @@ class Main {
 
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /*

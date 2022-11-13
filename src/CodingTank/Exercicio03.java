@@ -1,3 +1,5 @@
+package CodingTank;
+
 import java.util.Scanner;
 
 public class Exercicio03 {

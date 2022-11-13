@@ -1,4 +1,5 @@
-package teste;
+package CodingTank.teste;
+
 import java.util.Scanner;
 public class PrimoTH {
     public static void main(String[] args) {
