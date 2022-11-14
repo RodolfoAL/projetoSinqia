@@ -21,6 +21,5 @@ public class terceiroExercicio {
             System.out.println(num1 + " é o maior número seguido de " + num3 + " e o menor é: " + num2);
         }
 
-
     }
 }

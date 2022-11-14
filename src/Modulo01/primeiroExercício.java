@@ -9,7 +9,6 @@ public class primeiroExercício {
         System.out.println("Digite sua idade: ");
         int idade = entrada.nextInt();
 
-
         System.out.println(nome);
         System.out.println(idade);
     }
