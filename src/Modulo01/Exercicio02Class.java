@@ -40,6 +40,23 @@ public class Exercicio02Class {
         double lowestPrice = listOfPrices02.get(0);
         double biggestPrice = listOfPrices02.get(listOfPrices.size() - 1);
 
+        /* double menor = 999999999;
+        double maior = 0;
+
+        for (int i = 0; i < listOfPrices.size(); i++) {
+            if (listOfPrices.get(i) < menor) {
+                menor = listOfPrices.get(i);
+            }
+        }
+        System.out.println("O menor valor é: " + menor);
+
+        for (int i = 0; i < listOfPrices.size(); i++) {
+            if (listOfPrices.get(i) > maior) {
+                maior = listOfPrices.get(i);
+            }
+        }
+        System.out.println("O maior valor é: " + maior); */
+
         System.out.println("O produto mais caro é: " + listOfProducts.get(listOfPrices.indexOf(biggestPrice)) + " e seu preço é: R$" + biggestPrice);
         System.out.println("O produto mais barato é: " + listOfProducts.get(listOfPrices.indexOf(lowestPrice)) + " e seu preço é: R$" + lowestPrice);
         entrance.close();
