@@ -40,8 +40,15 @@ public class Exercicio02Class {
         double lowestPrice = listOfPrices02.get(0);
         double biggestPrice = listOfPrices02.get(listOfPrices.size() - 1);
 
-        /* double menor = 999999999;
-        double maior = 0;
+        System.out.println("O produto mais caro é: " + listOfProducts.get(listOfPrices.indexOf(biggestPrice)) + " e seu preço é: R$" + biggestPrice);
+        System.out.println("O produto mais barato é: " + listOfProducts.get(listOfPrices.indexOf(lowestPrice)) + " e seu preço é: R$" + lowestPrice);
+
+        entrance.close();
+
+        // Para achar o maior e o menor valor usando o laço FOR:
+
+        double menor = Double.MAX_VALUE;
+        double maior = Double.MIN_VALUE;
 
         for (int i = 0; i < listOfPrices.size(); i++) {
             if (listOfPrices.get(i) < menor) {
@@ -55,10 +62,16 @@ public class Exercicio02Class {
                 maior = listOfPrices.get(i);
             }
         }
-        System.out.println("O maior valor é: " + maior); */
+        System.out.println("O maior valor é: " + maior);
 
-        System.out.println("O produto mais caro é: " + listOfProducts.get(listOfPrices.indexOf(biggestPrice)) + " e seu preço é: R$" + biggestPrice);
-        System.out.println("O produto mais barato é: " + listOfProducts.get(listOfPrices.indexOf(lowestPrice)) + " e seu preço é: R$" + lowestPrice);
-        entrance.close();
+        // Ou de outra forma:
+
+        double menorValor = Collections.min(listOfPrices);
+        System.out.println(listOfPrices);
+        System.out.println("O menor valor é: " + menorValor);
+
+        double maiorValor = Collections.max(listOfPrices);
+        System.out.println("O maior valor é: " + maiorValor);
+
     }
 }
