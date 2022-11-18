@@ -1,6 +1,7 @@
 package Modulo01;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Aula04exercicio04 {
@@ -12,29 +13,60 @@ public class Aula04exercicio04 {
         N deve ser menor ou igual a 20. */
 
         Scanner entrance = new Scanner(System.in);
-        int dimension, lines, columns, i, j = 0;
-        do {
-            System.out.println("Digite uma dimensão da matriz quadrada:");
-            dimension = entrance.nextInt();
-            lines = columns = dimension;
-        } while (dimension < 2 || dimension > 20);
+        int index = 0;
+        boolean verify = true;
 
-        int[][] matrix = new int[lines][columns];
+        while (verify) {
+            try {
+                do {
+                    System.out.println("Digite uma dimensão da matriz quadrada (entre 2 e 20):");
+                    index = Integer.parseInt(String.valueOf(entrance.nextLine()));
+                } while (index < 2 || index > 20);
+                verify = false;
+            } catch (NumberFormatException | InputMismatchException e) {
+                System.out.println("Caractere incorreto " + e.getMessage());
+                System.out.println("Digito inválido, digite um número por favor.");
+            }
+        }
 
-        for (i = 0; i < matrix.length; i++) {
-            for (j = 0; j < matrix.length; j++)
+        int[][] matrix = new int[index][index];
+        int[][] newMatrix = setMatrix(matrix);
+
+        System.out.println(relocateMatrix(newMatrix));
+
+        entrance.close();
+    }
+
+    /**
+     * Método responsável em alterar a matriz bidimensional de 0 e 1
+     * @param matrix matriz de dimensões informadas pelo usuário
+     * @return nova matriz formada no método
+     */
+    public static int[][] setMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++)
                 if (j < i) {
                     matrix[i][j] = 1;
                 } else {
                     matrix[i][j] = 0;
                 }
         }
+        return matrix;
+    }
 
-        for (i = 0; i < matrix.length; i++) {
-            System.out.println();
-            for (j = 0; j < matrix.length; j++) {
-                System.out.print(matrix[i][j] + " ");
+    /**
+     * Método responsável em configurar a forma de impressão da matriz
+     * @param matrix matriz gerada no método setMatrix
+     * @return a própria matriz já configurada
+     */
+    public static String relocateMatrix(int[][] matrix) {
+        String data = " ";
+        for (int i = 0; i < matrix.length; i++) {
+            data += "\n";
+            for (int j = 0; j < matrix.length; j++) {
+                data += (matrix[i][j] + " ");
             }
         }
+        return data;
     }
 }
