@@ -1,5 +1,6 @@
 package Modulo01;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Exercicio01Class {
@@ -15,12 +16,14 @@ public class Exercicio01Class {
          */
         Scanner entrance = new Scanner(System.in);
         String operation;
+        Double number1 = 0.0;
+        Double number2 = 0.0;
         boolean verify = true;
 
         do {
             System.out.println("Qual operação você deseja fazer:");
             System.out.println("somar, subtrair, multiplicar ou dividir?");
-            operation = entrance.next();
+            operation = entrance.nextLine().toLowerCase();
             switch (operation) {
                 case "somar":
                 case "subtrair":
@@ -28,13 +31,42 @@ public class Exercicio01Class {
                 case "dividir":
                     verify = false;
                     break;
+                default:
+                    System.out.println("Operação inválida, digite novamente!");
             }
         } while (verify);
 
-        System.out.println("Digite o 1º valor");
-        double number1 = entrance.nextDouble();
-        System.out.println("Digite o 2º valor");
-        double number2 = entrance.nextDouble();
+        verify = true;
+
+        while (verify == true) {
+            try {
+                System.out.println("Digite o 1º número:");
+                number1 = entrance.nextDouble();
+                verify = false;
+            } catch (InputMismatchException e) {
+                entrance.nextLine();
+                System.out.println(e);
+                System.out.println("Digito inválido, digite um número por favor.");
+            }
+        }
+        System.out.println("Digite o 1º número:");
+        Double b = 0.0;
+                b = Double.parseDouble(entrance.nextLine());
+        System.out.println(b);
+
+        verify = true;
+
+        while (verify == true) {
+            try {
+                System.out.println("Digite o 2º valor");
+                number2 = entrance.nextDouble();
+                verify = false;
+            } catch (InputMismatchException e) {
+                entrance.nextLine();
+                System.out.println(e);
+                System.out.println("Digito inválido, digite um número por favor.");
+            }
+        }
         double resultado = 0;
 
         /* if (operation.equals("somar")) {
