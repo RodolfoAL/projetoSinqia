@@ -38,31 +38,25 @@ public class Exercicio01Class {
 
         verify = true;
 
-        while (verify == true) {
+        while (verify) {
             try {
                 System.out.println("Digite o 1º número:");
-                number1 = entrance.nextDouble();
+                number1 = Double.parseDouble(entrance.nextLine());
                 verify = false;
-            } catch (InputMismatchException e) {
-                entrance.nextLine();
-                System.out.println(e);
+            } catch (NumberFormatException | InputMismatchException e) {
+                System.out.println("Caractere incorreto " + e.getMessage());
                 System.out.println("Digito inválido, digite um número por favor.");
             }
         }
-        System.out.println("Digite o 1º número:");
-        Double b = 0.0;
-                b = Double.parseDouble(entrance.nextLine());
-        System.out.println(b);
 
         verify = true;
 
         while (verify == true) {
             try {
                 System.out.println("Digite o 2º valor");
-                number2 = entrance.nextDouble();
+                number2 = Double.parseDouble(entrance.nextLine());
                 verify = false;
-            } catch (InputMismatchException e) {
-                entrance.nextLine();
+            } catch (NumberFormatException | InputMismatchException e) {
                 System.out.println(e);
                 System.out.println("Digito inválido, digite um número por favor.");
             }
