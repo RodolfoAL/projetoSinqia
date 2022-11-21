@@ -1,11 +1,7 @@
 package Modulo01;
 
-import java.util.Scanner;
-
 public class Aula05exercicio01 {
     public static void main(String[] args) {
-
-        Scanner entrance = new Scanner(System.in);
 
         String[][] turma = {{"Chico Bento", "04M01", "57", "62", "65", "59"},
                 {"Rosinha", "04M02", "82", "87", "86", "96"},
