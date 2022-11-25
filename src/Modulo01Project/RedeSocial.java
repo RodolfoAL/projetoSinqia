@@ -9,22 +9,35 @@ public class RedeSocial {
     public static Scanner entrance = new Scanner(System.in);
     //public static User[] persona = new User[100];
     public static List<User> users = new ArrayList<User>();
-    public static int i = 0, count = 1;
-    public static String menu;
+    public static int i = 1, count = 1;
+    public static String menu, perguntaNovo;
     public static boolean verify = true;
 
     public static void main(String[] args) {
 
-        inicialMenu();
-        if (Objects.equals(menu, "c")) {
-            System.out.println("Cadastrar usuário");
-            //registerUserArray();
-            registerUser();
-        }else if (Objects.equals(menu, "e")) {
-            System.out.println("entrar no programa");
-        } else if (Objects.equals(menu, "f")) {
-            System.out.println("Você saiu do programa. Foi um prazer, volte sempre que quiser!");
-        }
+        System.out.println("Seja bem vindo à nova Rede Social");
+
+        do {
+            inicialMenu();
+            if (Objects.equals(menu, "c")) {
+                System.out.println("Cadastrar usuário");
+                //registerUserArray();
+                registerUser();
+                System.out.println("Usuário cadastrado com sucesso");
+                System.out.println("Você retorna agora para o");
+                verify = true;
+            } else if (Objects.equals(menu, "e")) {
+                System.out.println("entrar no programa");
+                System.out.println("Postar");
+                System.out.println("Você retorna agora para o");
+                verify = true;
+            } else if (Objects.equals(menu, "f")) {
+                System.out.println("Você saiu do programa. Foi um prazer, volte sempre que quiser!");
+                verify = false;
+            }
+        } while (verify);
+
+
         System.out.println(menu);
 
        /* for (i = 0; i < 1; i++) {
@@ -34,7 +47,7 @@ public class RedeSocial {
             System.out.println(users.get(i).name);
         }
 
-
+        entrance.close();
     }
 
     /**
@@ -44,7 +57,7 @@ public class RedeSocial {
      */
     public static String inicialMenu() {
         do {
-            System.out.println("Bemvindo ao Menu inicial: ");
+            System.out.println("Menu inicial: O que deseja fazer?");
             System.out.println("Digite C para cadastrar, E para entrar ou F para fechar: ");
             menu = entrance.nextLine().toLowerCase();
             switch (menu) {
@@ -92,31 +105,37 @@ public class RedeSocial {
         u1.name = entrance.nextLine();
         System.out.println("Digite uma senha: ");
         u1.password = entrance.nextLine();
-        count++;
 
     }
 
     /**
      * Método em que o Usuário cadastrado entra no sistema.
+     *
      * @return Usuário cadastrado.
      */
-    public static String getOnline(){
-        String a = "s";
+    public static String[] getOnline() {
+        String[] condition = {"offline", "-1"};
         System.out.println("Digite seu login: ");
         String userLogin = entrance.nextLine();
+
+        count = -1;
+        for (i = 0; i < users.size(); i++) {
+            if (users.get(i).login.equals(userLogin)) {
+                count = i;
+                break;
+            } else {
+                System.out.println("Usuário não cadastrado");
+            }
+        }
+        System.out.println("Bem vindo " + users.get(count).name);
+
         System.out.println("Entre com sua senha: ");
         String userPassword = entrance.nextLine();
 
-       for (i = 0; i < users.size(); i++) {
-           count = 0;
-           if (users.get(i).login == userLogin) {
-               count = i;
-               break;
-           }
-       }
-
-
-
-        return a;
+        if (users.get(count).password.equals(userPassword)) {
+            condition[0] = "online";
+            condition[1] = String.valueOf(count);
+        }
+        return condition;
     }
 }
