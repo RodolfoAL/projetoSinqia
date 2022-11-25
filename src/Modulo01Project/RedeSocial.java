@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 public class RedeSocial {
     public static Scanner entrance = new Scanner(System.in);
-    //public static User[] persona = new User[100];
+
     public static List<User> users = new ArrayList<User>();
+
     public static int i = 1, count = 1;
-    public static String menu, perguntaNovo;
+    public static String menu;
     public static boolean verify = true;
 
     public static void main(String[] args) {
@@ -21,14 +22,18 @@ public class RedeSocial {
             inicialMenu();
             if (Objects.equals(menu, "c")) {
                 System.out.println("Cadastrar usuário");
-                //registerUserArray();
                 registerUser();
                 System.out.println("Usuário cadastrado com sucesso");
                 System.out.println("Você retorna agora para o");
                 verify = true;
             } else if (Objects.equals(menu, "e")) {
                 System.out.println("entrar no programa");
-                System.out.println("Postar");
+                String[] condition = getOnline();
+                System.out.println("[" + condition[0] + ", " + condition[1] + "]");
+                i = Integer.parseInt(condition[1]);
+                System.out.println("Bemvindo " + users.get(i).name + " você está " + condition[0]);
+                System.out.println("O que deseja fazer?");
+                System.out.println("Postar, timeline ou sair?");
                 System.out.println("Você retorna agora para o");
                 verify = true;
             } else if (Objects.equals(menu, "f")) {
@@ -37,12 +42,8 @@ public class RedeSocial {
             }
         } while (verify);
 
-
         System.out.println(menu);
 
-       /* for (i = 0; i < 1; i++) {
-            System.out.println(persona[i].login);
-        }*/
         for (i = 0; i < users.size(); i++) {
             System.out.println(users.get(i).name);
         }
@@ -72,22 +73,6 @@ public class RedeSocial {
         } while (verify);
         return menu;
     }
-    /*
-        /**
-         * Método responsável por coletar o usuário e enviar para Array
-         */
-    /* public static void registerUserArray() {
-        User a1 = new User();
-        persona[0] = a1;
-
-        System.out.println("Digite seu login: ");
-        a1.login = entrance.nextLine();
-        System.out.println("Digite seu nome completo: ");
-        a1.name = entrance.nextLine();
-        System.out.println("Digite uma senha: ");
-        a1.password = entrance.nextLine();
-
-    } */
 
     /**
      * Método responsável por registrar login, nome e senha do usuário
@@ -111,7 +96,7 @@ public class RedeSocial {
     /**
      * Método em que o Usuário cadastrado entra no sistema.
      *
-     * @return Usuário cadastrado.
+     * @return condição de usuário e índice de localização do usuário.
      */
     public static String[] getOnline() {
         String[] condition = {"offline", "-1"};
@@ -127,7 +112,7 @@ public class RedeSocial {
                 System.out.println("Usuário não cadastrado");
             }
         }
-        System.out.println("Bem vindo " + users.get(count).name);
+        System.out.println("Olá " + users.get(count).name);
 
         System.out.println("Entre com sua senha: ");
         String userPassword = entrance.nextLine();
@@ -137,5 +122,12 @@ public class RedeSocial {
             condition[1] = String.valueOf(count);
         }
         return condition;
+    }
+
+    /**
+     * Método responsável em definir ações do usuário logado
+     */
+    public static void userMenu() {
+
     }
 }
