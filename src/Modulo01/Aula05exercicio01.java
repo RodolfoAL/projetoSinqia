@@ -3,13 +3,6 @@ package Modulo01;
 public class Aula05exercicio01 {
     public static void main(String[] args) {
 
-        /* Faça um programa que:
-        Leia um vetor "turma"de 5 alunos
-        Cada registro/objeto de aluno deve ter o número de matrícula do aluno e suas notas de 4 bimestres.
-        Faça um procedimento que imprima a lista de matrícula e notas de cada aluno
-        Faça uma função que tenha como parâmetro um objeto Aluno e retorne a média das 4 notas.
-        Percorra o vetor de alunos e imprima a matrícula e a média calculada (pela função criada) para cada aluno. */
-
         String[][] turma = {{"Chico Bento", "04M01", "57", "62", "65", "59"},
                 {"Rosinha", "04M02", "82", "87", "86", "96"},
                 {"Zé Lelé", "04M03", "62", "66", "71", "73"},
