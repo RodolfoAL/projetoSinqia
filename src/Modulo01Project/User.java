@@ -8,5 +8,7 @@ public class User {
     String login;
     String password;
 
-    public static List<Post> posts = new ArrayList<Post>();
+    List<Post> posts = new ArrayList<Post>();
+    Post p1 = new Post();
+
 }
