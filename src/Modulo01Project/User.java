@@ -9,6 +9,6 @@ public class User {
     String password;
 
     List<Post> posts = new ArrayList<Post>();
-    Post p1 = new Post();
+
 
 }

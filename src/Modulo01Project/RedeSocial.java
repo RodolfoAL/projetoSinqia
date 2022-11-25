@@ -9,7 +9,6 @@ public class RedeSocial {
     public static Scanner entrance = new Scanner(System.in);
 
     public static List<User> users = new ArrayList<User>();
-    public static User u1 = new User();
 
     public static int i = 1, count = 1, index, chosenUserMenu;
     public static String menu, dateNow, hourNow, newPost;
@@ -17,15 +16,15 @@ public class RedeSocial {
 
     public static void main(String[] args) {
 
-        System.out.println("Seja bem vindo Ã  nova Rede Social");
+        System.out.println("Seja bem vindo à nova Rede Social");
 
         do {
             inicialMenu();
             if (Objects.equals(menu, "c")) {
-                System.out.println("Cadastrar usuÃ¡rio");
+                System.out.println("Cadastrar usuário");
                 registerUser();
-                System.out.println("UsuÃ¡rio cadastrado com sucesso");
-                System.out.println("VocÃª retorna agora para o");
+                System.out.println("Usuário cadastrado com sucesso");
+                System.out.println("Você retorna agora para o");
                 verify = true;
             } else if (Objects.equals(menu, "e")) {
                 System.out.println("entrar no programa");
@@ -38,37 +37,32 @@ public class RedeSocial {
                     switch (chosenUserMenu) {
                         case 1:
                             makePost(index);
-                            System.out.println("fazer post");
                             verify = true;
                             break;
                         case 2:
-                            // viewTimeline();
-                            System.out.println("ver publicaÃ§Ãµes");
+                            viewTimeline(index);
                             verify = true;
                             break;
                         case 3:
-                            System.out.print("logout");
                             verify = false;
                             break;
                     }
                 } while (verify);
             } else if (Objects.equals(menu, "f")) {
-                System.out.println("VocÃª saiu do programa. Foi um prazer, volte sempre que quiser!");
+                System.out.println("Você saiu do programa. Foi um prazer, volte sempre que quiser!");
                 verify = false;
             }
         } while (verify);
 
-        System.out.println(menu);
-
-        for (i = 0; i < users.size(); i++) {
+        /* for (i = 0; i < users.size(); i++) {
             System.out.println(users.get(i).name);
-        }
+        } */
 
         entrance.close();
     }
 
     /**
-     * MÃ©todo responsÃ¡vel pelo menu inicial da rede social
+     * Método responsável pelo menu inicial da rede social
      *
      * @return menu
      */
@@ -84,71 +78,70 @@ public class RedeSocial {
                     verify = false;
                     break;
                 default:
-                    System.out.println("Digito invÃ¡lido");
+                    System.out.println("Digito inválido");
             }
         } while (verify);
         return menu;
     }
 
     /**
-     * MÃ©todo responsÃ¡vel por registrar login, nome e senha do usuÃ¡rio
+     * Método responsável por registrar login, nome e senha do usuário
      * e armazenar em uma lista.
      * (Array de Strings contendo login, nome e senha.)
      */
     public static void registerUser() {
-        users.add(u1);
+        User userRegister = new User();
+        users.add(userRegister);
 
         System.out.println("Digite seu login: ");
-        u1.login = entrance.nextLine();
+        userRegister.login = entrance.nextLine();
         System.out.println("Por favor, digite seu nome completo: ");
-        u1.name = entrance.nextLine();
+        userRegister.name = entrance.nextLine();
         System.out.println("Digite uma senha: ");
-        u1.password = entrance.nextLine();
+        userRegister.password = entrance.nextLine();
 
     }
 
     /**
-     * MÃ©todo em que o UsuÃ¡rio cadastrado entra no sistema.
+     * Método em que o Usuário cadastrado entra no sistema.
      *
-     * @return condiÃ§Ã£o de usuÃ¡rio e Ã­ndice de localizaÃ§Ã£o do usuÃ¡rio.
+     * @return condição de usuário e índice de localização do usuário.
      */
     public static String[] getOnline() {
         String[] condition = {"offline", "-1"};
         System.out.println("Digite seu login: ");
         String userLogin = entrance.nextLine();
 
-        index = 0;
+        count = -1;
         for (i = 0; i < users.size(); i++) {
             if (users.get(i).login.equals(userLogin)) {
-                index = i;
+                count = i;
                 break;
-            } else {
-                System.out.println("UsuÃ¡rio nÃ£o cadastrado");
             }
         }
-        System.out.println("OlÃ¡ " + users.get(index).name);
+        System.out.println("Olá " + users.get(count).name);
 
         System.out.println("Entre com sua senha: ");
         String userPassword = entrance.nextLine();
 
-        if (users.get(index).password.equals(userPassword)) {
+        if (users.get(count).password.equals(userPassword)) {
             condition[0] = "online";
-            condition[1] = String.valueOf(index);
+            condition[1] = String.valueOf(count);
         }
         return condition;
     }
 
     /**
-     * MÃ©todo responsÃ¡vel em definir aÃ§Ãµes do usuÃ¡rio logado
+     * Método responsável em definir ações do usuário logado
      */
     public static int userMenu(int index, String[] condition) {
         int chosenUserMenu;
         verify = true;
-        System.out.println("Bemvindo ao menu do usuÃ¡rio " + users.get(index).name + " vocÃª estÃ¡ " + condition[0]);
+        System.out.println("Bemvindo ao menu do usuário " + users.get(index).name + " você está " + condition[0]);
         do {
             System.out.println("O que deseja fazer?");
             System.out.println("Escolha: (1) para Postar, (2) para ir na timeline ou (3) para sair?");
-            chosenUserMenu = entrance.nextInt();
+            chosenUserMenu = Integer.parseInt(entrance.nextLine());
             switch (chosenUserMenu) {
                 case 1:
                 case 2:
@@ -156,20 +149,24 @@ public class RedeSocial {
                     verify = false;
                     break;
                 default:
-                    System.out.println("Digito invÃ¡lido, favor digitar o nÃºmero de uma das opÃ§Ãµes:");
+                    System.out.println("Digito inválido, favor digitar o número de uma das opções:");
             }
         } while (verify);
         return chosenUserMenu;
     }
 
     /**
-     * MÃ©todo responsÃ¡vel pela publicaÃ§Ã£o de posts do usuÃ¡rio logado.
+     * Método responsável pela publicação de posts do usuário logado.
      */
     public static void makePost(int index) {
         String confirmOrEdit;
         verify = true;
-        u1.posts.add(u1.p1);
+        User user = users.get(index);
+        Post p1 = new Post();
+        user.posts.add(p1);
 
+
+        System.out.println(user.login);
 
         do {
             System.out.println("Para fazer um novo post, por favor insira os dados segundo o modelo: ");
@@ -180,11 +177,11 @@ public class RedeSocial {
             System.out.println("Agora digite o texto: ");
             newPost = entrance.nextLine();
 
-            u1.p1.date = dateNow;
-            u1.p1.hour = hourNow;
-            u1.p1.text = newPost;
+            p1.date = dateNow;
+            p1.hour = hourNow;
+            p1.text = newPost;
 
-            System.out.println(dateNow + " Ã s " + hourNow + " - " + newPost);
+            System.out.println(dateNow + " às " + hourNow + " - " + newPost);
 
             do {
                 System.out.println("Digite (c) para confirmar ou (e) para editar novamente seu post:");
@@ -198,11 +195,17 @@ public class RedeSocial {
             } while (verify);
 
         } while (confirmOrEdit.equals("e"));
+
+        System.out.println();
     }
 
     /**
-     * MÃ©todo onde se observa todas as postagens feitas pelo usuÃ¡rio logado.
+     * Método onde se observa todas as postagens feitas pelo usuário logado.
      */
-    public static void viewTimeline() {
+    public static void viewTimeline(int index) {
+        User user = users.get(index);
+        for (Post p : user.posts) {
+            System.out.println(p.date + " às " + p.hour + " - " + p.text);
+        }
     }
 }
