@@ -14,9 +14,9 @@ public class Aula05Scanner {
     }
 
     /**
-     * M√©todo respons√°vel para receber a entrada do usu√°rio
+     * MÈtodo respons·vel para receber a entrada do usu·rio
      *
-     * @return um double digitado pelo usu√°rio.
+     * @return um double digitado pelo usu·rio.
      */
     public static double userEntrance() {
         boolean verify = true;
@@ -24,12 +24,12 @@ public class Aula05Scanner {
 
         while (verify) {
             try {
-                System.out.println("Digite um n√∫mero:");
+                System.out.println("Digite um n˙mero:");
                 number = Double.parseDouble(entrance.nextLine());
                 verify = false;
             } catch (NumberFormatException | InputMismatchException e) {
                 System.out.println("Caractere incorreto " + e.getMessage());
-                System.out.println("Digito inv√°lido, digite um n√∫mero por favor.");
+                System.out.println("Digito inv·lido, digite um n˙mero por favor.");
             }
         }
 

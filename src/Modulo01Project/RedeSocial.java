@@ -10,55 +10,58 @@ public class RedeSocial {
 
     public static List<User> users = new ArrayList<User>();
 
-    public static int i = 1, count = 1, index, chosenUserMenu;
-    public static String menu, dateNow, hourNow, newPost;
+    public static int i = 1, count = 1, index;
+    public static String menu, loginEntrance, dateNow, hourNow, newPost, chosenUserMenu;
     public static boolean verify = true;
 
     public static void main(String[] args) {
 
-        System.out.println("Seja bem vindo à nova Rede Social");
-
         do {
             inicialMenu();
             if (Objects.equals(menu, "c")) {
-                System.out.println("Cadastrar usuário");
-                registerUser();
-                System.out.println("Usuário cadastrado com sucesso");
-                System.out.println("Você retorna agora para o");
+                verify = true;
+                while (verify) {
+                    try {
+                        registerUser();
+                        verify = false;
+                    } catch (UserAlreadyRegisteredException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 verify = true;
             } else if (Objects.equals(menu, "e")) {
-                System.out.println("entrar no programa");
                 String[] condition = getOnline();
-                System.out.println("[" + condition[0] + ", " + condition[1] + "]");
                 index = Integer.parseInt(condition[1]);
                 verify = true;
                 do {
                     chosenUserMenu = userMenu(index, condition);
                     switch (chosenUserMenu) {
-                        case 1:
+                        case "p":
                             makePost(index);
                             verify = true;
                             break;
-                        case 2:
+                        case "t":
                             viewTimeline(index);
                             verify = true;
                             break;
-                        case 3:
+                        case "u":
+                            viewUsers();
+                            verify = true;
+                            break;
+                        case "f":
                             verify = false;
                             break;
                     }
                 } while (verify);
+
             } else if (Objects.equals(menu, "f")) {
                 System.out.println("Você saiu do programa. Foi um prazer, volte sempre que quiser!");
                 verify = false;
             }
-        } while (verify);
+            verify = true;
 
-        /* for (i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i).name);
-        } */
+        } while (true);
 
-        entrance.close();
     }
 
     /**
@@ -68,8 +71,10 @@ public class RedeSocial {
      */
     public static String inicialMenu() {
         do {
+            System.out.println("\n***** Seja bem vindo à nova Rede Social - (versão ß - :P) *****");
+            System.out.println("Aqui vc poderá se cadastrar e fazer seus posts!\n");
             System.out.println("Menu inicial: O que deseja fazer?");
-            System.out.println("Digite C para cadastrar, E para entrar ou F para fechar: ");
+            System.out.println("Digite (c) para cadastrar, (e) para entrar ou (f) para fechar o programa: ");
             menu = entrance.nextLine().toLowerCase();
             switch (menu) {
                 case "c":
@@ -89,16 +94,32 @@ public class RedeSocial {
      * e armazenar em uma lista.
      * (Array de Strings contendo login, nome e senha.)
      */
-    public static void registerUser() {
+    public static void registerUser() throws UserAlreadyRegisteredException {
+        System.out.println("Vamos cadastrar um novo usuário então: ");
+
         User userRegister = new User();
         users.add(userRegister);
 
-        System.out.println("Digite seu login: ");
-        userRegister.login = entrance.nextLine();
+        System.out.println("Digite um login: ");
+        loginEntrance = entrance.nextLine();
+
+
+        if (users.size() >= 1) {
+            for (i = 0; i < users.size(); i++) {
+                if (loginEntrance.equals(users.get(i).login)) {
+                    throw new UserAlreadyRegisteredException();
+                }
+            }
+        }
+        userRegister.login = loginEntrance;
+
         System.out.println("Por favor, digite seu nome completo: ");
         userRegister.name = entrance.nextLine();
-        System.out.println("Digite uma senha: ");
+        System.out.println("Agora digite uma senha: ");
         userRegister.password = entrance.nextLine();
+
+        System.out.println("Usuário cadastrado com sucesso");
+        System.out.println("** Você retorna agora para o **\n");
 
     }
 
@@ -108,6 +129,7 @@ public class RedeSocial {
      * @return condição de usuário e índice de localização do usuário.
      */
     public static String[] getOnline() {
+        System.out.println("Para entrar, por favor:");
         String[] condition = {"offline", "-1"};
         System.out.println("Digite seu login: ");
         String userLogin = entrance.nextLine();
@@ -134,22 +156,27 @@ public class RedeSocial {
     /**
      * Método responsável em definir ações do usuário logado
      */
-    public static int userMenu(int index, String[] condition) {
-        int chosenUserMenu;
+    public static String userMenu(int index, String[] condition) {
+        String chosenUserMenu;
         verify = true;
         System.out.println("Bemvindo ao menu do usuário " + users.get(index).name + " você está " + condition[0]);
         do {
-            System.out.println("O que deseja fazer?");
-            System.out.println("Escolha: (1) para Postar, (2) para ir na timeline ou (3) para sair?");
-            chosenUserMenu = Integer.parseInt(entrance.nextLine());
+            System.out.println("O que deseja fazer agora?");
+            System.out.println("Escolha entre uma das opções: ");
+            System.out.println("- (p) para fazer um POST;");
+            System.out.println("- (t) para vizualizar sua TIMELINE;");
+            System.out.println("- (u) para vizualizar outros USUÁRIOS;");
+            System.out.println("- (f) para FINALIZAR o programa e sair;");
+            chosenUserMenu = entrance.nextLine().toLowerCase();
             switch (chosenUserMenu) {
-                case 1:
-                case 2:
-                case 3:
+                case "p":
+                case "t":
+                case "u":
+                case "f":
                     verify = false;
                     break;
                 default:
-                    System.out.println("Digito inválido, favor digitar o número de uma das opções:");
+                    System.out.println("Digito inválido, favor digitar uma das opções:");
             }
         } while (verify);
         return chosenUserMenu;
@@ -181,6 +208,7 @@ public class RedeSocial {
             p1.hour = hourNow;
             p1.text = newPost;
 
+            System.out.println("Seu post: ");
             System.out.println(dateNow + " às " + hourNow + " - " + newPost);
 
             do {
@@ -203,9 +231,22 @@ public class RedeSocial {
      * Método onde se observa todas as postagens feitas pelo usuário logado.
      */
     public static void viewTimeline(int index) {
+        System.out.println("Até este momento, seus posts são: ");
         User user = users.get(index);
         for (Post p : user.posts) {
             System.out.println(p.date + " às " + p.hour + " - " + p.text);
         }
+        System.out.println("** Você retorna agora para o **\n");
+    }
+
+    /**
+     * Método utilizado para vizualizar todos os usuários cadastrados
+     */
+    public static void viewUsers() {
+        System.out.println("\nAté o momento os usuários cadastrados são: ");
+        for (i = 0; i < users.size(); i++) {
+            System.out.println(users.get(i).name);
+        }
+        System.out.println("\n** Você retorna agora para o **\n");
     }
 }
