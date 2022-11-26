@@ -40,10 +40,14 @@ public class RedeSocial {
                         } catch (UserNotFoundException e) {
                             System.out.println(e.getMessage());
                             verify = true;
+                        } catch (InvalidPasswordException e) {
+                            System.out.println(e.getMessage());
                         }
                     }
                     index = Integer.parseInt(condition[1]);
+
                 } while (index == -1);
+
                 verify = true;
                 do {
                     chosenUserMenu = userMenu(index, condition);
@@ -140,11 +144,11 @@ public class RedeSocial {
      *
      * @return condição de usuário e índice de localização do usuário.
      */
-    public static String[] getOnline() throws UserNotFoundException {
-        System.out.println("Para entrar, por favor:");
+    public static String[] getOnline() throws UserNotFoundException, InvalidPasswordException {
+        System.out.println("Para entrar, por favor,");
         String[] condition = {"offline", "-1"};
 
-        System.out.println("Digite seu login: ");
+        System.out.println("digite seu login: ");
         String userLogin = entrance.nextLine();
 
         count = -1;
@@ -162,13 +166,15 @@ public class RedeSocial {
             throw new UserNotFoundException();
         }
 
-        System.out.println("Olá " + users.get(count).name);
-        System.out.println("Entre com sua senha: ");
+        System.out.println("Olá " + users.get(count).name + ",");
+        System.out.println("entre com sua senha: ");
         String userPassword = entrance.nextLine();
 
         if (users.get(count).password.equals(userPassword)) {
             condition[0] = "online";
             condition[1] = String.valueOf(count);
+        } else {
+            throw new InvalidPasswordException();
         }
         return condition;
     }
