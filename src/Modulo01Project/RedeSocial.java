@@ -30,8 +30,20 @@ public class RedeSocial {
                 }
                 verify = true;
             } else if (Objects.equals(menu, "e")) {
-                String[] condition = getOnline();
-                index = Integer.parseInt(condition[1]);
+                verify = true;
+                String[] condition = {"offline", "-1"};
+                do {
+                    while (verify) {
+                        try {
+                            condition = getOnline();
+                            verify = false;
+                        } catch (UserNotFoundException e) {
+                            System.out.println(e.getMessage());
+                            verify = true;
+                        }
+                    }
+                    index = Integer.parseInt(condition[1]);
+                } while (index == -1);
                 verify = true;
                 do {
                     chosenUserMenu = userMenu(index, condition);
@@ -128,21 +140,29 @@ public class RedeSocial {
      *
      * @return condição de usuário e índice de localização do usuário.
      */
-    public static String[] getOnline() {
+    public static String[] getOnline() throws UserNotFoundException {
         System.out.println("Para entrar, por favor:");
         String[] condition = {"offline", "-1"};
+
         System.out.println("Digite seu login: ");
         String userLogin = entrance.nextLine();
 
         count = -1;
+        verify = false;
+
         for (i = 0; i < users.size(); i++) {
             if (users.get(i).login.equals(userLogin)) {
                 count = i;
+                verify = true;
                 break;
             }
         }
-        System.out.println("Olá " + users.get(count).name);
 
+        if (count == -1) {
+            throw new UserNotFoundException();
+        }
+
+        System.out.println("Olá " + users.get(count).name);
         System.out.println("Entre com sua senha: ");
         String userPassword = entrance.nextLine();
 
