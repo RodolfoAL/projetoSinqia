@@ -1,5 +1,7 @@
 package Modulo01Project;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +37,7 @@ public class RedeSocial {
                 do {
                     while (verify) {
                         try {
-                            condition = getOnline();
+                            condition = getOnline(condition);
                             verify = false;
                         } catch (UserNotFoundException e) {
                             System.out.println(e.getMessage());
@@ -86,6 +88,7 @@ public class RedeSocial {
      * @return menu
      */
     public static String inicialMenu() {
+        //if (users.size() == 0)
         do {
             System.out.println("\n***** Seja bem vindo à nova Rede Social - (versão ß - :P) *****");
             System.out.println("Aqui vc poderá se cadastrar e fazer seus posts!\n");
@@ -101,7 +104,9 @@ public class RedeSocial {
                 default:
                     System.out.println("Digito inválido");
             }
-        } while (verify);
+        } while (verify || users.size() == 0 && menu.equals("e"));
+
+
         return menu;
     }
 
@@ -113,12 +118,8 @@ public class RedeSocial {
     public static void registerUser() throws UserAlreadyRegisteredException {
         System.out.println("Vamos cadastrar um novo usuário então: ");
 
-        User userRegister = new User();
-        users.add(userRegister);
-
         System.out.println("Digite um login: ");
         loginEntrance = entrance.nextLine();
-
 
         if (users.size() >= 1) {
             for (i = 0; i < users.size(); i++) {
@@ -127,6 +128,10 @@ public class RedeSocial {
                 }
             }
         }
+
+        User userRegister = new User();
+        users.add(userRegister);
+
         userRegister.login = loginEntrance;
 
         System.out.println("Por favor, digite seu nome completo: ");
@@ -144,9 +149,9 @@ public class RedeSocial {
      *
      * @return condição de usuário e índice de localização do usuário.
      */
-    public static String[] getOnline() throws UserNotFoundException, InvalidPasswordException {
+    public static String @NotNull [] getOnline(String[] condition) throws UserNotFoundException, InvalidPasswordException {
         System.out.println("Para entrar, por favor,");
-        String[] condition = {"offline", "-1"};
+        condition = new String[]{"offline", "-1"};
 
         System.out.println("digite seu login: ");
         String userLogin = entrance.nextLine();
