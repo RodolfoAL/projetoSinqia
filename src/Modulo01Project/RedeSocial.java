@@ -17,8 +17,10 @@ public class RedeSocial {
 
         do {
             inicialMenu();
+
             if (Objects.equals(menu, "c")) {
                 verify = true;
+
                 while (verify) {
                     try {
                         registerUser();
@@ -28,9 +30,11 @@ public class RedeSocial {
                     }
                 }
                 verify = true;
+
             } else if (Objects.equals(menu, "e")) {
                 verify = true;
                 String[] condition = {"offline", "-1"};
+
                 do {
                     while (verify) {
                         try {
@@ -44,10 +48,9 @@ public class RedeSocial {
                         }
                     }
                     index = Integer.parseInt(condition[1]);
-
                 } while (index == -1);
-
                 verify = true;
+
                 do {
                     chosenUserMenu = userMenu(index, condition);
                     switch (chosenUserMenu) {
@@ -80,7 +83,6 @@ public class RedeSocial {
             verify = true;
 
         } while (true);
-
     }
 
     /**
@@ -91,9 +93,10 @@ public class RedeSocial {
     public static String inicialMenu() {
         //if (users.size() == 0)
         do {
-            System.out.println("\n***** Seja bem vindo à nova Rede Social - (versão ß - :P) *****");
-            System.out.println("Aqui vc poderá se cadastrar e fazer seus posts!\n");
-            System.out.println("Menu inicial: O que deseja fazer?");
+            System.out.println("\n|===============================================|");
+            System.out.println("***** Seja bem vindo à sua nova Rede Social *****");
+            System.out.println("|===============================================|");
+            System.out.println("\nMenu inicial: O que deseja fazer?");
             System.out.println("Digite (c) para cadastrar, (e) para entrar ou (f) para fechar o programa: ");
             menu = entrance.nextLine().toLowerCase();
             switch (menu) {
@@ -119,7 +122,7 @@ public class RedeSocial {
     public static void registerUser() throws UserAlreadyRegisteredException {
         System.out.println("Vamos cadastrar um novo usuário então: ");
 
-        System.out.println("Digite um login: ");
+        System.out.println("Por favor, digite um login: ");
         loginEntrance = entrance.nextLine();
 
         if (users.size() >= 1) {
@@ -135,12 +138,12 @@ public class RedeSocial {
 
         userRegister.login = loginEntrance;
 
-        System.out.println("Por favor, digite seu nome completo: ");
+        System.out.println("Agora digite seu nome completo: ");
         userRegister.name = entrance.nextLine();
-        System.out.println("Agora digite uma senha: ");
+        System.out.println("E para finalizar, digite uma senha: ");
         userRegister.password = entrance.nextLine();
 
-        System.out.println("Usuário cadastrado com sucesso");
+        System.out.println("Você foi cadastrado com sucesso");
         System.out.println("** Você retorna agora para o **\n");
 
     }
@@ -173,7 +176,7 @@ public class RedeSocial {
         }
 
         System.out.println("Olá " + users.get(count).name + ",");
-        System.out.println("entre com sua senha: ");
+        System.out.println("agora entre com sua senha cadastrada: ");
         String userPassword = entrance.nextLine();
 
         if (users.get(count).password.equals(userPassword)) {
@@ -193,8 +196,7 @@ public class RedeSocial {
         verify = true;
         System.out.println("Bemvindo ao menu do usuário " + users.get(index).name + " você está " + condition[0]);
         do {
-            System.out.println("O que deseja fazer agora?");
-            System.out.println("Escolha entre uma das opções: ");
+            System.out.println("O que deseja fazer agora? Escolha entre uma das opções: ");
             System.out.println("- (p) para fazer um POST;");
             System.out.println("- (t) para vizualizar sua TIMELINE;");
             System.out.println("- (u) para vizualizar outros USUÁRIOS;");
@@ -210,7 +212,7 @@ public class RedeSocial {
                     verify = false;
                     break;
                 default:
-                    System.out.println("Digito inválido, favor digitar uma das opções:");
+                    System.out.println("Digito inválido, favor digitar uma das opções fornecidas:");
             }
         } while (verify);
         return chosenUserMenu;
@@ -237,7 +239,7 @@ public class RedeSocial {
             dateNow = d + "/" + m + "/" + a;
             hourNow = h + ":" + mi;
 
-            System.out.println("Para fazer um novo post, por favor digite seu texto: ");
+            System.out.println("Para fazer um novo post, por favor digite seu texto agora: ");
             newPost = entrance.nextLine();
 
             p1.date = dateNow;
@@ -271,7 +273,7 @@ public class RedeSocial {
         User user = users.get(index);
 
         if (user.posts.size() == 0) {
-            System.out.println("Nenhum... Digite (p) na próxima pergunta e faça o seu 1º!!!\n");
+            System.out.println("0! Nenhum... Digite (p) na próxima pergunta e faça o seu 1º!!!\n");
         } else {
             for (Post p : user.posts) {
                 System.out.println(p.date + " às " + p.hour + " - " + p.text);
@@ -332,38 +334,38 @@ public class RedeSocial {
         }
         verify = true;
         count = 1;
-        if (users.size() == 1) {
+        User registeredUser = users.get(count);
 
-        } else if (users.size() > 1) {
+        if (users.size() > 1) {
             if (optionMenu <= index) {
-                count = index - 1;
-                for (i = 0; i < users.get(count).posts.size(); i++) {
-                    User registeredUser = users.get(count);
-                    if (registeredUser.posts.size() != 0) {
+                count = optionMenu - 1;
+                if (registeredUser.posts.size() != 0) {
+                    for (i = 0; i < registeredUser.posts.size(); i++) {
                         System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
-                    } else if (users.get(index).posts.size() == 0) {
-                        verify = false;
                     }
+                } else {
+                    verify = false;
                 }
-            } else if (optionMenu > index) {
-                for (i = 0; i < users.get(count).posts.size(); i++) {
-                    User registeredUser = users.get(count);
-                    if (registeredUser.posts.size() != 0) {
+            } else {
+                count = optionMenu;
+                if (registeredUser.posts.size() != 0) {
+                    for (i = 0; i < registeredUser.posts.size(); i++) {
                         System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
-                    } else if (users.get(index).posts.size() == 0) {
-                        verify = false;
                     }
+                } else {
+                    verify = false;
                 }
             }
+            if (!verify) {
+                System.out.println("O usuário não publicou nenhum post");
+            }
+            System.out.println("\n** Você retorna agora para o **\n");
         }
-        if (!verify) {
-            System.out.println("O usuário não publicou nenhum post");
-        }
-        System.out.println("\n** Você retorna agora para o **\n");
     }
 
     /**
      * Método responsável por fornecer a data e a hora.
+     *
      * @return Array contendo dados de data e hora.
      */
     public static int[] dateAndHour() {
@@ -377,13 +379,13 @@ public class RedeSocial {
         int h = calendar.get(Calendar.HOUR_OF_DAY);
         int mi = calendar.get(Calendar.MINUTE);
 
-        int[] dateNow = new int[5];
-        dateNow[0] = d;
-        dateNow[1] = m;
-        dateNow[2] = a;
-        dateNow[3] = h;
-        dateNow[4] = mi;
+        int[] dateAndHourNow = new int[5];
+        dateAndHourNow[0] = d;
+        dateAndHourNow[1] = m;
+        dateAndHourNow[2] = a;
+        dateAndHourNow[3] = h;
+        dateAndHourNow[4] = mi;
 
-        return dateNow;
+        return dateAndHourNow;
     }
 }
