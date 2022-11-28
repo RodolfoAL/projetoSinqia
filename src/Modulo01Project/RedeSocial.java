@@ -9,7 +9,7 @@ public class RedeSocial {
 
     public static List<User> users = new ArrayList<User>();
 
-    public static int i = 1, j = 1, count = 1, index, optionMenu;
+    public static int i = 1, count = 1, index, optionMenu;
     public static String menu, loginEntrance, dateNow, hourNow, newPost, chosenUserMenu;
     public static boolean verify = true;
 
@@ -226,16 +226,18 @@ public class RedeSocial {
         Post p1 = new Post();
         user.posts.add(p1);
 
-
-        System.out.println(user.login);
-
         do {
-            System.out.println("Para fazer um novo post, por favor insira os dados segundo o modelo: ");
-            System.out.println("data (dd/mm/aaa):");
-            dateNow = entrance.nextLine();
-            System.out.println("hora (hh:mm):");
-            hourNow = entrance.nextLine();
-            System.out.println("Agora digite o texto: ");
+            int[] arrayOfDateAndHour = dateAndHour();
+            int d = arrayOfDateAndHour[0];
+            int m = arrayOfDateAndHour[1];
+            int a = arrayOfDateAndHour[2];
+            int h = arrayOfDateAndHour[3];
+            int mi = arrayOfDateAndHour[4];
+
+            dateNow = d + "/" + m + "/" + a;
+            hourNow = h + ":" + mi;
+
+            System.out.println("Para fazer um novo post, por favor digite seu texto: ");
             newPost = entrance.nextLine();
 
             p1.date = dateNow;
@@ -272,7 +274,7 @@ public class RedeSocial {
             System.out.println("Nenhum... Digite (p) na próxima pergunta e faça o seu 1º!!!\n");
         } else {
             for (Post p : user.posts) {
-                System.out.println(p.date + " às " + p.hour + " - " + p.text + "\n");
+                System.out.println(p.date + " às " + p.hour + " - " + p.text);
             }
         }
         System.out.println("** Você retorna agora para o **\n");
@@ -322,8 +324,8 @@ public class RedeSocial {
                 try {
                     optionMenu = Integer.parseInt(entrance.nextLine());
                     verify = false;
-                } catch (InputMismatchException | IndexOutOfBoundsException e) {
-                    System.out.println("Dígito inválido, favor digitar um dos números correspondentes: ");
+                } catch (InputMismatchException | IndexOutOfBoundsException | NumberFormatException e) {
+                    System.out.println("Dígito inválido, favor digitar um dos números correspondentes ao(s) outro(s) usuário(s): ");
                     System.out.println(e.getMessage());
                 }
             }
@@ -335,25 +337,21 @@ public class RedeSocial {
         } else if (users.size() > 1) {
             if (optionMenu <= index) {
                 count = index - 1;
-                for (i = 0; i < users.size(); i++) {
-                    for (j = 0; j < users.get(count).posts.size(); j++) {
-                        User registeredUser = users.get(count);
-                        if (users.get(count).posts.size() != 0) {
-                            System.out.println(registeredUser.posts.get(j).date + " às " + registeredUser.posts.get(j).hour + " - " + registeredUser.posts.get(j).text);
-                        } else if (users.get(index).posts.size() == 0) {
-                            verify = false;
-                        }
+                for (i = 0; i < users.get(count).posts.size(); i++) {
+                    User registeredUser = users.get(count);
+                    if (registeredUser.posts.size() != 0) {
+                        System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
+                    } else if (users.get(index).posts.size() == 0) {
+                        verify = false;
                     }
                 }
             } else if (optionMenu > index) {
-                for (i = 0; i < users.size(); i++) {
-                    for (j = 0; j < users.get(count).posts.size(); j++) {
-                        User registeredUser = users.get(count);
-                        if (users.get(count).posts.size() != 0) {
-                            System.out.println(registeredUser.posts.get(j).date + " às " + registeredUser.posts.get(j).hour + " - " + registeredUser.posts.get(j).text);
-                        } else if (users.get(index).posts.size() == 0) {
-                            verify = false;
-                        }
+                for (i = 0; i < users.get(count).posts.size(); i++) {
+                    User registeredUser = users.get(count);
+                    if (registeredUser.posts.size() != 0) {
+                        System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
+                    } else if (users.get(index).posts.size() == 0) {
+                        verify = false;
                     }
                 }
             }
@@ -362,5 +360,30 @@ public class RedeSocial {
             System.out.println("O usuário não publicou nenhum post");
         }
         System.out.println("\n** Você retorna agora para o **\n");
+    }
+
+    /**
+     * Método responsável por fornecer a data e a hora.
+     * @return Array contendo dados de data e hora.
+     */
+    public static int[] dateAndHour() {
+        Date date = new Date();
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+
+        int d = calendar.get(Calendar.DATE);
+        int m = calendar.get(Calendar.MONTH) + 1;
+        int a = calendar.get(Calendar.YEAR);
+        int h = calendar.get(Calendar.HOUR_OF_DAY);
+        int mi = calendar.get(Calendar.MINUTE);
+
+        int[] dateNow = new int[5];
+        dateNow[0] = d;
+        dateNow[1] = m;
+        dateNow[2] = a;
+        dateNow[3] = h;
+        dateNow[4] = mi;
+
+        return dateNow;
     }
 }
