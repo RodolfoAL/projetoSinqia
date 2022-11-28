@@ -334,11 +334,12 @@ public class RedeSocial {
         }
         verify = true;
         count = 1;
-        User registeredUser = users.get(count);
+        User registeredUser;
 
         if (users.size() > 1) {
             if (optionMenu <= index) {
                 count = optionMenu - 1;
+                registeredUser = users.get(count);
                 if (registeredUser.posts.size() != 0) {
                     for (i = 0; i < registeredUser.posts.size(); i++) {
                         System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
@@ -348,6 +349,7 @@ public class RedeSocial {
                 }
             } else {
                 count = optionMenu;
+                registeredUser = users.get(count);
                 if (registeredUser.posts.size() != 0) {
                     for (i = 0; i < registeredUser.posts.size(); i++) {
                         System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
