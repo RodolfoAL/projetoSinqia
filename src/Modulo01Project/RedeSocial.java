@@ -2,17 +2,14 @@ package Modulo01Project;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class RedeSocial {
     public static Scanner entrance = new Scanner(System.in);
 
     public static List<User> users = new ArrayList<User>();
 
-    public static int i = 1, count = 1, index;
+    public static int i = 1, j = 1, count = 1, index, optionMenu;
     public static String menu, loginEntrance, dateNow, hourNow, newPost, chosenUserMenu;
     public static boolean verify = true;
 
@@ -63,7 +60,11 @@ public class RedeSocial {
                             verify = true;
                             break;
                         case "u":
-                            viewUsers();
+                            viewUsers(index);
+                            verify = true;
+                            break;
+                        case "v":
+                            viewOtherTimelines(index);
                             verify = true;
                             break;
                         case "f":
@@ -197,12 +198,14 @@ public class RedeSocial {
             System.out.println("- (p) para fazer um POST;");
             System.out.println("- (t) para vizualizar sua TIMELINE;");
             System.out.println("- (u) para vizualizar outros USUÁRIOS;");
+            System.out.println("- (v) para vizualizar posts de outros USUÁRIOS;");
             System.out.println("- (f) para FINALIZAR o programa e sair;");
             chosenUserMenu = entrance.nextLine().toLowerCase();
             switch (chosenUserMenu) {
                 case "p":
                 case "t":
                 case "u":
+                case "v":
                 case "f":
                     verify = false;
                     break;
@@ -240,7 +243,7 @@ public class RedeSocial {
             p1.text = newPost;
 
             System.out.println("Seu post: ");
-            System.out.println(dateNow + " às " + hourNow + " - " + newPost);
+            System.out.println(dateNow + " às " + hourNow + " - " + newPost + "\n");
 
             do {
                 System.out.println("Digite (c) para confirmar ou (e) para editar novamente seu post:");
@@ -264,8 +267,13 @@ public class RedeSocial {
     public static void viewTimeline(int index) {
         System.out.println("Até este momento, seus posts são: ");
         User user = users.get(index);
-        for (Post p : user.posts) {
-            System.out.println(p.date + " às " + p.hour + " - " + p.text);
+
+        if (user.posts.size() == 0) {
+            System.out.println("Nenhum... Digite (p) na próxima pergunta e faça o seu 1º!!!\n");
+        } else {
+            for (Post p : user.posts) {
+                System.out.println(p.date + " às " + p.hour + " - " + p.text + "\n");
+            }
         }
         System.out.println("** Você retorna agora para o **\n");
     }
@@ -273,10 +281,85 @@ public class RedeSocial {
     /**
      * Método utilizado para vizualizar todos os usuários cadastrados
      */
-    public static void viewUsers() {
-        System.out.println("\nAté o momento os usuários cadastrados são: ");
-        for (i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i).name);
+    public static void viewUsers(int index) {
+
+        System.out.println("\nAté o momento, os outros usuários cadastrados são: ");
+        if (users.size() == 1) {
+            System.out.println("Ôpa, não existem outros usuários cadastrados além de você! Você foi o primeiro acadastrar na Rede Social!");
+        } else if (users.size() > 1) {
+            for (i = 0; i < users.size(); i++) {
+                if (index == i) {
+                    continue;
+                } else {
+                    System.out.println(users.get(i).name);
+                }
+            }
+        }
+        System.out.println("\n** Você retorna agora para o **\n");
+    }
+
+    /**
+     * Método que permite a vizualização das postagemns de outros usuários cadastrados.
+     */
+    public static void viewOtherTimelines(int index) {
+        System.out.println("Selecione qual o número do usuário você quer vizualizar os posts: ");
+        count = 1;
+
+        if (users.size() == 1) {
+            System.out.println("Não existem outros usuários ainda, por isso não existem outros posts!");
+        } else if (users.size() > 1) {
+            for (i = 0; i < users.size(); i++) {
+                if (index == i) {
+                    continue;
+                } else {
+                    System.out.println("(" + count + ") para: " + users.get(i).name);
+                }
+                count++;
+            }
+            verify = true;
+
+            while (verify) {
+                try {
+                    optionMenu = Integer.parseInt(entrance.nextLine());
+                    verify = false;
+                } catch (InputMismatchException | IndexOutOfBoundsException e) {
+                    System.out.println("Dígito inválido, favor digitar um dos números correspondentes: ");
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+        verify = true;
+        count = 1;
+        if (users.size() == 1) {
+
+        } else if (users.size() > 1) {
+            if (optionMenu <= index) {
+                count = index - 1;
+                for (i = 0; i < users.size(); i++) {
+                    for (j = 0; j < users.get(count).posts.size(); j++) {
+                        User registeredUser = users.get(count);
+                        if (users.get(count).posts.size() != 0) {
+                            System.out.println(registeredUser.posts.get(j).date + " às " + registeredUser.posts.get(j).hour + " - " + registeredUser.posts.get(j).text);
+                        } else if (users.get(index).posts.size() == 0) {
+                            verify = false;
+                        }
+                    }
+                }
+            } else if (optionMenu > index) {
+                for (i = 0; i < users.size(); i++) {
+                    for (j = 0; j < users.get(count).posts.size(); j++) {
+                        User registeredUser = users.get(count);
+                        if (users.get(count).posts.size() != 0) {
+                            System.out.println(registeredUser.posts.get(j).date + " às " + registeredUser.posts.get(j).hour + " - " + registeredUser.posts.get(j).text);
+                        } else if (users.get(index).posts.size() == 0) {
+                            verify = false;
+                        }
+                    }
+                }
+            }
+        }
+        if (!verify) {
+            System.out.println("O usuário não publicou nenhum post");
         }
         System.out.println("\n** Você retorna agora para o **\n");
     }
