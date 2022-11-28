@@ -191,7 +191,7 @@ public class RedeSocial {
     /**
      * Método responsável em definir ações do usuário logado
      */
-    public static String userMenu(int index, String[] condition) {
+    public static String userMenu(int index, String @NotNull [] condition) {
         String chosenUserMenu;
         verify = true;
         System.out.println("Bemvindo ao menu do usuário " + users.get(index).name + " você está " + condition[0]);
@@ -341,7 +341,7 @@ public class RedeSocial {
                 count = optionMenu - 1;
                 registeredUser = users.get(count);
                 if (registeredUser.posts.size() != 0) {
-                    System.out.println("O(s) post(s) publicados por ele(a) é(são): ");
+                    System.out.println("Post(s) publicados por " + registeredUser.name + ": ");
                     for (i = 0; i < registeredUser.posts.size(); i++) {
                         System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
                     }
@@ -352,7 +352,7 @@ public class RedeSocial {
                 count = optionMenu;
                 registeredUser = users.get(count);
                 if (registeredUser.posts.size() != 0) {
-                    System.out.println("O(s) post(s) publicados por ele(a) é(são): ");
+                    System.out.println("Post(s) publicados por " + registeredUser.name + ": ");
                     for (i = 0; i < registeredUser.posts.size(); i++) {
                         System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
                     }
