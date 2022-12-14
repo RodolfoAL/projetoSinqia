@@ -1,20 +1,50 @@
 package modulo02project;
 
-import modulo01project.Post;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    String name;
-    String login;
-    String password;
+    private String name;
+    private String login;
+    private String password;
 
-    List<modulo01project.Post> posts = new ArrayList<Post>();
+    public List<Post> posts = new ArrayList<Post>();
 
     public User(String login, String name, String password) {
         this.login = login;
         this.name = name;
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

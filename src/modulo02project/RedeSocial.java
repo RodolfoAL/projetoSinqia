@@ -1,7 +1,5 @@
 package modulo02project;
 
-import modulo01project.InvalidPasswordException;
-import modulo01project.Post;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -15,7 +13,8 @@ public class RedeSocial {
     public static String menu, loginEntrance, nameEntrance, passwordEntrance, dateNow, hourNow, newPost, chosenUserMenu;
     public static boolean verify = true;
 
-    public static void main(String[] args) {
+
+    public void start() {
 
         do {
             inicialMenu();
@@ -45,7 +44,7 @@ public class RedeSocial {
                         } catch (UserNotFoundException e) {
                             System.out.println(e.getMessage());
                             verify = true;
-                        } catch (modulo01project.InvalidPasswordException e) {
+                        } catch (InvalidPasswordException e) {
                             System.out.println(e.getMessage());
                         }
                     }
@@ -92,7 +91,7 @@ public class RedeSocial {
      *
      * @return menu
      */
-    public static String inicialMenu() {
+    protected String inicialMenu() {
         //if (users.size() == 0)
         do {
             System.out.println("\n|===============================================|");
@@ -121,7 +120,7 @@ public class RedeSocial {
      * e armazenar em uma lista.
      * (Array de Strings contendo login, nome e senha.)
      */
-    public static void registerUser() throws UserAlreadyRegisteredException {
+    protected void registerUser() throws UserAlreadyRegisteredException {
         System.out.println("Vamos cadastrar um novo usuário então: ");
 
         System.out.println("Por favor, digite um login: ");
@@ -129,7 +128,7 @@ public class RedeSocial {
 
         if (users.size() >= 1) {
             for (i = 0; i < users.size(); i++) {
-                if (loginEntrance.equals(users.get(i).login)) {
+                if (loginEntrance.equals(users.get(i).getLogin())) {
                     throw new UserAlreadyRegisteredException();
                 }
             }
@@ -152,7 +151,7 @@ public class RedeSocial {
      *
      * @return condição de usuário e índice de localização do usuário.
      */
-    public static String @NotNull [] getOnline(String[] condition) throws UserNotFoundException, InvalidPasswordException {
+    protected String @NotNull [] getOnline(String[] condition) throws UserNotFoundException, InvalidPasswordException {
         System.out.println("Para entrar, por favor,");
         condition = new String[]{"offline", "-1"};
 
@@ -163,7 +162,7 @@ public class RedeSocial {
         verify = false;
 
         for (i = 0; i < users.size(); i++) {
-            if (users.get(i).login.equals(userLogin)) {
+            if (users.get(i).getLogin().equals(userLogin)) {
                 count = i;
                 verify = true;
                 break;
@@ -174,11 +173,11 @@ public class RedeSocial {
             throw new UserNotFoundException();
         }
 
-        System.out.println("Olá " + users.get(count).name + ",");
+        System.out.println("Olá " + users.get(count).getName() + ",");
         System.out.println("agora entre com sua senha cadastrada: ");
         String userPassword = entrance.nextLine();
 
-        if (users.get(count).password.equals(userPassword)) {
+        if (users.get(count).getPassword().equals(userPassword)) {
             condition[0] = "online";
             condition[1] = String.valueOf(count);
         } else {
@@ -190,10 +189,10 @@ public class RedeSocial {
     /**
      * Método responsável em definir ações do usuário logado
      */
-    public static String userMenu(int index, String @NotNull [] condition) {
+    protected String userMenu(int index, String @NotNull [] condition) {
         String chosenUserMenu;
         verify = true;
-        System.out.println("Bemvindo ao menu do usuário " + users.get(index).name + " você está " + condition[0]);
+        System.out.println("Bemvindo ao menu do usuário " + users.get(index).getName() + ", você está " + condition[0]);
         do {
             System.out.println("O que deseja fazer agora? Escolha entre uma das opções: ");
             System.out.println("- (p) para fazer um POST;");
@@ -220,11 +219,11 @@ public class RedeSocial {
     /**
      * Método responsável pela publicação de posts do usuário logado.
      */
-    public static void makePost(int index) {
+    public void makePost(int index) {
         String confirmOrEdit;
         verify = true;
         User user = users.get(index);
-        modulo01project.Post p1 = new modulo01project.Post();
+        Post p1 = new Post();
         user.posts.add(p1);
 
         do {
@@ -241,9 +240,9 @@ public class RedeSocial {
             System.out.println("Para fazer um novo post, por favor digite seu texto agora: ");
             newPost = entrance.nextLine();
 
-            p1.date = dateNow;
-            p1.hour = hourNow;
-            p1.text = newPost;
+            p1.setDate(dateNow);
+            p1.setHour(hourNow);
+            p1.setText(newPost);
 
             System.out.println("Seu post: ");
             System.out.println(dateNow + " às " + hourNow + " - " + newPost + "\n");
@@ -267,15 +266,15 @@ public class RedeSocial {
     /**
      * Método onde se observa todas as postagens feitas pelo usuário logado.
      */
-    public static void viewTimeline(int index) {
+    protected void viewTimeline(int index) {
         System.out.println("Até este momento, seus posts são: ");
         User user = users.get(index);
 
-        if (user.posts.size() == 0) {
+        if (user.getPosts().size() == 0) {
             System.out.println("0! Nenhum... Digite (p) na próxima pergunta e faça o seu 1º!!!\n");
         } else {
-            for (Post p : user.posts) {
-                System.out.println(p.date + " às " + p.hour + " - " + p.text);
+            for (Post p : user.getPosts()) {
+                System.out.println(p.getDate() + " às " + p.getHour() + " - " + p.getText());
             }
         }
         System.out.println("** Você retorna agora para o **\n");
@@ -284,17 +283,17 @@ public class RedeSocial {
     /**
      * Método utilizado para vizualizar todos os usuários cadastrados
      */
-    public static void viewUsers(int index) {
+    protected void viewUsers(int index) {
 
         System.out.println("\nAté o momento, os outros usuários cadastrados são: ");
         if (users.size() == 1) {
-            System.out.println("Ôpa, não existem outros usuários cadastrados além de você! Você foi o primeiro acadastrar na Rede Social!");
+            System.out.println("Ôpa, não existem outros usuários cadastrados além de você! Você foi o primeiro a cadastrar na Rede Social!");
         } else if (users.size() > 1) {
             for (i = 0; i < users.size(); i++) {
                 if (index == i) {
                     continue;
                 } else {
-                    System.out.println(users.get(i).name);
+                    System.out.println(users.get(i).getName());
                 }
             }
         }
@@ -304,7 +303,7 @@ public class RedeSocial {
     /**
      * Método que permite a vizualização das postagemns de outros usuários cadastrados.
      */
-    public static void viewOtherTimelines(int index) {
+    protected void viewOtherTimelines(int index) {
         System.out.println("Selecione qual o número do usuário você quer vizualizar os posts: ");
         count = 1;
 
@@ -315,7 +314,7 @@ public class RedeSocial {
                 if (index == i) {
                     continue;
                 } else {
-                    System.out.println("(" + count + ") para: " + users.get(i).name);
+                    System.out.println("(" + count + ") para: " + users.get(i).getName());
                 }
                 count++;
             }
@@ -340,9 +339,9 @@ public class RedeSocial {
                 count = optionMenu - 1;
                 registeredUser = users.get(count);
                 if (registeredUser.posts.size() != 0) {
-                    System.out.println("Post(s) publicados por " + registeredUser.name + ": ");
+                    System.out.println("Post(s) publicados por " + registeredUser.getName() + ": ");
                     for (i = 0; i < registeredUser.posts.size(); i++) {
-                        System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
+                        System.out.println(registeredUser.posts.get(i).getDate() + " às " + registeredUser.posts.get(i).getHour() + " - " + registeredUser.posts.get(i).getText());
                     }
                 } else {
                     verify = false;
@@ -351,9 +350,9 @@ public class RedeSocial {
                 count = optionMenu;
                 registeredUser = users.get(count);
                 if (registeredUser.posts.size() != 0) {
-                    System.out.println("Post(s) publicados por " + registeredUser.name + ": ");
+                    System.out.println("Post(s) publicados por " + registeredUser.getName() + ": ");
                     for (i = 0; i < registeredUser.posts.size(); i++) {
-                        System.out.println(registeredUser.posts.get(i).date + " às " + registeredUser.posts.get(i).hour + " - " + registeredUser.posts.get(i).text);
+                        System.out.println(registeredUser.posts.get(i).getDate() + " às " + registeredUser.posts.get(i).getHour() + " - " + registeredUser.posts.get(i).getText());
                     }
                 } else {
                     verify = false;
@@ -371,7 +370,7 @@ public class RedeSocial {
      *
      * @return Array contendo dados de data e hora.
      */
-    public static int[] dateAndHour() {
+    protected int[] dateAndHour() {
         Date date = new Date();
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(date);
