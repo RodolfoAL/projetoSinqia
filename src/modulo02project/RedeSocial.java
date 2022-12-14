@@ -5,15 +5,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public class RedeSocial {
-    public static Scanner entrance = new Scanner(System.in);
 
-    public static List<User> users = new ArrayList<User>();
+    private static Scanner entrance = new Scanner(System.in);
+    private static List<User> users = new ArrayList<User>();
+    private static int i = 1, count = 1, index, optionMenu;
+    private static String menu, loginEntrance, nameEntrance, passwordEntrance, dateNow, hourNow, newPost, chosenUserMenu;
+    private static boolean verify = true;
 
-    public static int i = 1, count = 1, index, optionMenu;
-    public static String menu, loginEntrance, nameEntrance, passwordEntrance, dateNow, hourNow, newPost, chosenUserMenu;
-    public static boolean verify = true;
-
-
+    /**
+     * Método responsável por ser o esqueleto da rede social e gerenciar a chamada dos outros métodos.
+     */
     public void start() {
 
         do {
@@ -91,7 +92,7 @@ public class RedeSocial {
      *
      * @return menu
      */
-    protected String inicialMenu() {
+    private String inicialMenu() {
         //if (users.size() == 0)
         do {
             System.out.println("\n|===============================================|");
@@ -120,7 +121,7 @@ public class RedeSocial {
      * e armazenar em uma lista.
      * (Array de Strings contendo login, nome e senha.)
      */
-    protected void registerUser() throws UserAlreadyRegisteredException {
+    private void registerUser() throws UserAlreadyRegisteredException {
         System.out.println("Vamos cadastrar um novo usuário então: ");
 
         System.out.println("Por favor, digite um login: ");
@@ -151,7 +152,7 @@ public class RedeSocial {
      *
      * @return condição de usuário e índice de localização do usuário.
      */
-    protected String @NotNull [] getOnline(String[] condition) throws UserNotFoundException, InvalidPasswordException {
+    private String @NotNull [] getOnline(String[] condition) throws UserNotFoundException, InvalidPasswordException {
         System.out.println("Para entrar, por favor,");
         condition = new String[]{"offline", "-1"};
 
@@ -189,7 +190,7 @@ public class RedeSocial {
     /**
      * Método responsável em definir ações do usuário logado
      */
-    protected String userMenu(int index, String @NotNull [] condition) {
+    private String userMenu(int index, String @NotNull [] condition) {
         String chosenUserMenu;
         verify = true;
         System.out.println("Bemvindo ao menu do usuário " + users.get(index).getName() + ", você está " + condition[0]);
@@ -219,7 +220,7 @@ public class RedeSocial {
     /**
      * Método responsável pela publicação de posts do usuário logado.
      */
-    public void makePost(int index) {
+    private void makePost(int index) {
         String confirmOrEdit;
         verify = true;
         User user = users.get(index);
@@ -266,7 +267,7 @@ public class RedeSocial {
     /**
      * Método onde se observa todas as postagens feitas pelo usuário logado.
      */
-    protected void viewTimeline(int index) {
+    private void viewTimeline(int index) {
         System.out.println("Até este momento, seus posts são: ");
         User user = users.get(index);
 
@@ -283,7 +284,7 @@ public class RedeSocial {
     /**
      * Método utilizado para vizualizar todos os usuários cadastrados
      */
-    protected void viewUsers(int index) {
+    private void viewUsers(int index) {
 
         System.out.println("\nAté o momento, os outros usuários cadastrados são: ");
         if (users.size() == 1) {
@@ -303,7 +304,7 @@ public class RedeSocial {
     /**
      * Método que permite a vizualização das postagemns de outros usuários cadastrados.
      */
-    protected void viewOtherTimelines(int index) {
+    private void viewOtherTimelines(int index) {
         System.out.println("Selecione qual o número do usuário você quer vizualizar os posts: ");
         count = 1;
 
@@ -370,7 +371,7 @@ public class RedeSocial {
      *
      * @return Array contendo dados de data e hora.
      */
-    protected int[] dateAndHour() {
+    private int[] dateAndHour() {
         Date date = new Date();
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(date);
