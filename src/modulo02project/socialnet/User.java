@@ -1,4 +1,4 @@
-package modulo02project;
+package modulo02project.socialnet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +36,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
 }

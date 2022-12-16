@@ -1,5 +1,8 @@
-package modulo02project;
+package modulo02project.socialnet;
 
+import modulo02project.socialnet.exceptions.InvalidPasswordException;
+import modulo02project.socialnet.exceptions.UserAlreadyRegisteredException;
+import modulo02project.socialnet.exceptions.UserNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

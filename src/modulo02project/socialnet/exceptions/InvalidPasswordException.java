@@ -1,4 +1,4 @@
-package modulo02project;
+package modulo02project.socialnet.exceptions;
 
 public class InvalidPasswordException extends RuntimeException {
     public String getMessage() {

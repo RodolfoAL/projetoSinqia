@@ -1,4 +1,4 @@
-package modulo02project;
+package modulo02project.socialnet;
 
 public class Post {
     private String date;

@@ -1,4 +1,4 @@
-package modulo02project;
+package modulo02project.socialnet.exceptions;
 
 public class UserAlreadyRegisteredException extends RuntimeException {
     public String getMessage() {
