@@ -16,7 +16,7 @@ public class RedeSocial {
     private static boolean verify = true;
 
     /**
-     * Método responsável por ser o esqueleto da rede social e gerenciar a chamada dos outros métodos.
+     * MÃ©todo responsÃ¡vel por ser o esqueleto da rede social e gerenciar a chamada dos outros mÃ©todos.
      */
     public void start() {
 
@@ -82,7 +82,7 @@ public class RedeSocial {
                 } while (verify);
 
             } else if (Objects.equals(menu, "f")) {
-                System.out.println("Você saiu do programa. Foi um prazer, volte sempre que quiser!");
+                System.out.println("VocÃª saiu do programa. Foi um prazer, volte sempre que quiser!");
                 verify = false;
             }
             verify = true;
@@ -91,15 +91,14 @@ public class RedeSocial {
     }
 
     /**
-     * Método responsável pelo menu inicial da rede social
-     *
+     * MÃ©todo responsÃ¡vel pelo menu inicial da rede social
      * @return menu
      */
     private String inicialMenu() {
         //if (users.size() == 0)
         do {
             System.out.println("\n|===============================================|");
-            System.out.println("***** Seja bem vindo à sua nova Rede Social *****");
+            System.out.println("***** Seja bem vindo Ã  sua nova Rede Social *****");
             System.out.println("|===============================================|");
             System.out.println("\nMenu inicial: O que deseja fazer?");
             System.out.println("Digite (c) para cadastrar, (e) para entrar ou (f) para fechar o programa: ");
@@ -111,7 +110,7 @@ public class RedeSocial {
                     verify = false;
                     break;
                 default:
-                    System.out.println("Digito inválido");
+                    System.out.println("Digito invÃ¡lido");
             }
         } while (verify || users.size() == 0 && menu.equals("e"));
 
@@ -120,12 +119,12 @@ public class RedeSocial {
     }
 
     /**
-     * Método responsável por registrar login, nome e senha do usuário
+     * MÃ©todo responsÃ¡vel por registrar login, nome e senha do usuÃ¡rio
      * e armazenar em uma lista.
      * (Array de Strings contendo login, nome e senha.)
      */
     private void registerUser() throws UserAlreadyRegisteredException {
-        System.out.println("Vamos cadastrar um novo usuário então: ");
+        System.out.println("Vamos cadastrar um novo usuÃ¡rio entÃ£o: ");
 
         System.out.println("Por favor, digite um login: ");
         loginEntrance = entrance.nextLine();
@@ -143,17 +142,16 @@ public class RedeSocial {
         System.out.println("E para finalizar, digite uma senha: ");
         passwordEntrance = entrance.nextLine();
 
-        System.out.println("Você foi cadastrado com sucesso");
-        System.out.println("** Você retorna agora para o **\n");
+        System.out.println("VocÃª foi cadastrado com sucesso");
+        System.out.println("** VocÃª retorna agora para o **\n");
 
         User userRegister = new User(loginEntrance, nameEntrance, passwordEntrance);
         users.add(userRegister);
     }
 
     /**
-     * Método em que o Usuário cadastrado entra no sistema.
-     *
-     * @return condição de usuário e índice de localização do usuário.
+     * MÃ©todo em que o UsuÃ¡rio cadastrado entra no sistema.
+     * @return condiÃ§Ã£o de usuÃ¡rio e Ã­ndice de localizaÃ§Ã£o do usuÃ¡rio.
      */
     private String @NotNull [] getOnline(String[] condition) throws UserNotFoundException, InvalidPasswordException {
         System.out.println("Para entrar, por favor,");
@@ -177,7 +175,7 @@ public class RedeSocial {
             throw new UserNotFoundException();
         }
 
-        System.out.println("Olá " + users.get(count).getName() + ",");
+        System.out.println("OlÃ¡ " + users.get(count).getName() + ",");
         System.out.println("agora entre com sua senha cadastrada: ");
         String userPassword = entrance.nextLine();
 
@@ -191,18 +189,18 @@ public class RedeSocial {
     }
 
     /**
-     * Método responsável em definir ações do usuário logado
+     * MÃ©todo responsÃ¡vel em definir aÃ§Ãµes do usuÃ¡rio logado
      */
     private String userMenu(int index, String @NotNull [] condition) {
         String chosenUserMenu;
         verify = true;
-        System.out.println("Bemvindo ao menu do usuário " + users.get(index).getName() + ", você está " + condition[0]);
+        System.out.println("Bem vindo ao menu do usuÃ¡rio " + users.get(index).getName() + ", vocÃª estÃ¡ " + condition[0]);
         do {
-            System.out.println("O que deseja fazer agora? Escolha entre uma das opções: ");
+            System.out.println("O que deseja fazer agora? Escolha entre uma das opÃ§Ãµes: ");
             System.out.println("- (p) para fazer um POST;");
-            System.out.println("- (t) para vizualizar sua TIMELINE;");
-            System.out.println("- (u) para vizualizar outros USUÁRIOS;");
-            System.out.println("- (v) para vizualizar posts de outros USUÁRIOS;");
+            System.out.println("- (t) para visualizar sua TIMELINE;");
+            System.out.println("- (u) para visualizar outros USUÃRIOS;");
+            System.out.println("- (v) para visualizar posts de outros USUÃRIOS;");
             System.out.println("- (f) para FINALIZAR o programa e sair;");
             chosenUserMenu = entrance.nextLine().toLowerCase();
             switch (chosenUserMenu) {
@@ -214,14 +212,14 @@ public class RedeSocial {
                     verify = false;
                     break;
                 default:
-                    System.out.println("Digito inválido, favor digitar uma das opções fornecidas:");
+                    System.out.println("Digito invÃ¡lido, favor digitar uma das opÃ§Ãµes fornecidas:");
             }
         } while (verify);
         return chosenUserMenu;
     }
 
     /**
-     * Método responsável pela publicação de posts do usuário logado.
+     * MÃ©todo responsÃ¡vel pela publicaÃ§Ã£o de posts do usuÃ¡rio logado.
      */
     private void makePost(int index) {
         String confirmOrEdit;
@@ -249,7 +247,7 @@ public class RedeSocial {
             p1.setText(newPost);
 
             System.out.println("Seu post: ");
-            System.out.println(dateNow + " às " + hourNow + " - " + newPost + "\n");
+            System.out.println(dateNow + " Ã s " + hourNow + " - " + newPost + "\n");
 
             do {
                 System.out.println("Digite (c) para confirmar ou (e) para editar novamente seu post:");
@@ -268,30 +266,30 @@ public class RedeSocial {
     }
 
     /**
-     * Método onde se observa todas as postagens feitas pelo usuário logado.
+     * MÃ©todo onde se observa todas as postagens feitas pelo usuÃ¡rio logado.
      */
     private void viewTimeline(int index) {
-        System.out.println("Até este momento, seus posts são: ");
+        System.out.println("AtÃ© este momento, seus posts sÃ£o: ");
         User user = users.get(index);
 
         if (user.getPosts().size() == 0) {
-            System.out.println("0! Nenhum... Digite (p) na próxima pergunta e faça o seu 1º!!!\n");
+            System.out.println("0! Nenhum... Digite (p) na prÃ³xima pergunta e faÃ§a o seu 1Âº!!!\n");
         } else {
             for (Post p : user.getPosts()) {
-                System.out.println(p.getDate() + " às " + p.getHour() + " - " + p.getText());
+                System.out.println(p.getDate() + " Ã s " + p.getHour() + " - " + p.getText());
             }
         }
-        System.out.println("** Você retorna agora para o **\n");
+        System.out.println("** VocÃª retorna agora para o **\n");
     }
 
     /**
-     * Método utilizado para vizualizar todos os usuários cadastrados
+     * MÃ©todo utilizado para visualizar todos os usuÃ¡rios cadastrados
      */
     private void viewUsers(int index) {
 
-        System.out.println("\nAté o momento, os outros usuários cadastrados são: ");
+        System.out.println("\nAtÃ© o momento, os outros usuÃ¡rios cadastrados sÃ£o: ");
         if (users.size() == 1) {
-            System.out.println("Ôpa, não existem outros usuários cadastrados além de você! Você foi o primeiro a cadastrar na Rede Social!");
+            System.out.println("Ã”pa, nÃ£o existem outros usuÃ¡rios cadastrados alÃ©m de vocÃª! VocÃª foi o primeiro a cadastrar na Rede Social!");
         } else if (users.size() > 1) {
             for (i = 0; i < users.size(); i++) {
                 if (index == i) {
@@ -301,18 +299,18 @@ public class RedeSocial {
                 }
             }
         }
-        System.out.println("\n** Você retorna agora para o **\n");
+        System.out.println("\n** VocÃª retorna agora para o **\n");
     }
 
     /**
-     * Método que permite a vizualização das postagemns de outros usuários cadastrados.
+     * MÃ©todo que permite a visualizaÃ§Ã£o das postagens de outros usuÃ¡rios cadastrados.
      */
     private void viewOtherTimelines(int index) {
-        System.out.println("Selecione qual o número do usuário você quer vizualizar os posts: ");
+        System.out.println("Selecione qual o nÃºmero do usuÃ¡rio vocÃª quer visualizar os posts: ");
         count = 1;
 
         if (users.size() == 1) {
-            System.out.println("Não existem outros usuários ainda, por isso não existem outros posts!");
+            System.out.println("NÃ£o existem outros usuÃ¡rios ainda, por isso nÃ£o existem outros posts!");
         } else if (users.size() > 1) {
             for (i = 0; i < users.size(); i++) {
                 if (index == i) {
@@ -329,7 +327,7 @@ public class RedeSocial {
                     optionMenu = Integer.parseInt(entrance.nextLine());
                     verify = false;
                 } catch (InputMismatchException | IndexOutOfBoundsException | NumberFormatException e) {
-                    System.out.println("Dígito inválido, favor digitar um dos números correspondentes ao(s) outro(s) usuário(s): ");
+                    System.out.println("DÃ­gito invÃ¡lido, favor digitar um dos nÃºmeros correspondentes ao(s) outro(s) usuÃ¡rio(s): ");
                     System.out.println(e.getMessage());
                 }
             }
@@ -345,7 +343,7 @@ public class RedeSocial {
                 if (registeredUser.posts.size() != 0) {
                     System.out.println("Post(s) publicados por " + registeredUser.getName() + ": ");
                     for (i = 0; i < registeredUser.posts.size(); i++) {
-                        System.out.println(registeredUser.posts.get(i).getDate() + " às " + registeredUser.posts.get(i).getHour() + " - " + registeredUser.posts.get(i).getText());
+                        System.out.println(registeredUser.posts.get(i).getDate() + " Ã s " + registeredUser.posts.get(i).getHour() + " - " + registeredUser.posts.get(i).getText());
                     }
                 } else {
                     verify = false;
@@ -356,22 +354,21 @@ public class RedeSocial {
                 if (registeredUser.posts.size() != 0) {
                     System.out.println("Post(s) publicados por " + registeredUser.getName() + ": ");
                     for (i = 0; i < registeredUser.posts.size(); i++) {
-                        System.out.println(registeredUser.posts.get(i).getDate() + " às " + registeredUser.posts.get(i).getHour() + " - " + registeredUser.posts.get(i).getText());
+                        System.out.println(registeredUser.posts.get(i).getDate() + " Ã s " + registeredUser.posts.get(i).getHour() + " - " + registeredUser.posts.get(i).getText());
                     }
                 } else {
                     verify = false;
                 }
             }
             if (!verify) {
-                System.out.println("O usuário escolhido ainda não publicou nenhum post.");
+                System.out.println("O usuÃ¡rio escolhido ainda nÃ£o publicou nenhum post.");
             }
-            System.out.println("\n** Você retorna agora para o **\n");
+            System.out.println("\n** VocÃª retorna agora para o **\n");
         }
     }
 
     /**
-     * Método responsável por fornecer a data e a hora.
-     *
+     * MÃ©todo responsÃ¡vel por fornecer a data e a hora.
      * @return Array contendo dados de data e hora.
      */
     private int[] dateAndHour() {
