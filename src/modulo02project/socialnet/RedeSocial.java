@@ -16,7 +16,7 @@ public class RedeSocial {
     private static boolean verify = true;
 
     /**
-     * Método responsável por ser o esqueleto da rede social e gerenciar a chamada dos outros métodos.
+     * Método responsável por ser o esqueleto da rede social, iniciá-la e gerenciar a chamada dos outros métodos.
      */
     public void start() {
 
@@ -98,7 +98,7 @@ public class RedeSocial {
         //if (users.size() == 0)
         do {
             System.out.println("\n|===============================================|");
-            System.out.println("***** Seja bem vindo à sua nova Rede Social *****");
+            System.out.println("***** Seja bem vindo a sua nova Rede Social *****");
             System.out.println("|===============================================|");
             System.out.println("\nMenu inicial: O que deseja fazer?");
             System.out.println("Digite (c) para cadastrar, (e) para entrar ou (f) para fechar o programa: ");
@@ -119,8 +119,7 @@ public class RedeSocial {
     }
 
     /**
-     * Método responsável por registrar login, nome e senha do usuário
-     * e armazenar em uma lista.
+     * Método responsável por registrar login, nome e senha do usuário e armazenar em uma lista.
      * (Array de Strings contendo login, nome e senha.)
      */
     private void registerUser() throws UserAlreadyRegisteredException {
